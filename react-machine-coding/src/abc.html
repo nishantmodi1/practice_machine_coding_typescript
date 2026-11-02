@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Framenox — Creative Agency</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f3ef;
+      color: #1a1a1a;
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* subtle grain / paper texture (optional, adds depth) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ----- TYPOGRAPHY & COLORS ----- */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #111;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #6b6b6b;
+      margin-bottom: 1rem;
+      border-bottom: 1.5px solid #c0b7a8;
+      padding-bottom: 0.25rem;
+    }
+
+    /* ----- HEADER / HERO SECTION ----- */
+    .hero {
+      padding: 3rem 0 6rem;
+      position: relative;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111;
+      text-transform: uppercase;
+    }
+
+    .logo span {
+      color: #b15e2a;
+      font-weight: 400;
+      font-size: 1.2rem;
+      margin-left: 2px;
+    }
+
+    .hero-tagline {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #4a4a4a;
+      max-width: 280px;
+      text-align: right;
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-title-1 {
+      font-size: clamp(3rem, 12vw, 7rem);
+      font-weight: 800;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: #111;
+      text-transform: uppercase;
+    }
+
+    .hero-title-2 {
+      font-size: clamp(3rem, 12vw, 7rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: #b15e2a;
+      font-style: italic;
+      margin-left: 10%;
+      margin-top: -0.1em;
+      text-transform: uppercase;
+    }
+
+    .hero-quote {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #2b2b2b;
+      margin-top: 2rem;
+      max-width: 550px;
+      padding-left: 1rem;
+      border-left: 3px solid #b15e2a;
+      font-style: italic;
+    }
+
+    /* ----- SERVICES SECTION ----- */
+    .services {
+      padding: 5rem 0;
+      background-color: #efece6;
+      border-top: 1px solid #dbd5cb;
+      border-bottom: 1px solid #dbd5cb;
+    }
+
+    .services-header {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2.5rem;
+    }
+
+    .services-header h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .services-header h2 .star {
+      color: #b15e2a;
+      font-size: 2rem;
+    }
+
+    .services-sub {
+      color: #4d4d4d;
+      font-size: 1rem;
+      max-width: 600px;
+      margin-top: 0.75rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .service-card {
+      padding: 1.5rem 0.5rem 1rem 0.5rem;
+      border-top: 2px solid #cbc3b7;
+      transition: all 0.25s ease;
+    }
+
+    .service-card:hover {
+      border-top-color: #b15e2a;
+      transform: translateY(-4px);
+    }
+
+    .service-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #b15e2a;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #1a1a1a;
+    }
+
+    /* ----- PROCESS SECTION ----- */
+    .process {
+      padding: 5rem 0;
+      background-color: #f5f3ef;
+    }
+
+    .process-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid #dbd5cb;
+      padding-bottom: 0.75rem;
+    }
+
+    .process-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+    }
+
+    .process-header .process-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: #7a7267;
+      text-transform: uppercase;
+    }
+
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #e0dbd2;
+      transition: background 0.2s ease;
+    }
+
+    .step-item:hover {
+      background: rgba(177, 94, 42, 0.02);
+    }
+
+    .step-number {
+      font-size: 2.5rem;
+      font-weight: 300;
+      line-height: 1;
+      color: #b15e2a;
+      min-width: 70px;
+      font-feature-settings: "tnum";
+    }
+
+    .step-content h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-content p {
+      color: #4b4b4b;
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+
+    /* ----- WHY FRAMENOX SECTION ----- */
+    .why {
+      padding: 5rem 0 6rem;
+      background-color: #efece6;
+    }
+
+    .why h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .why-card {
+      border-top: 1px solid #cbc3b7;
+      padding-top: 1.5rem;
+    }
+
+    .why-number {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #b15e2a;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .why-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .why-card p {
+      font-size: 0.95rem;
+      color: #4d4d4d;
+      line-height: 1.4;
+    }
+
+    /* ----- FOOTER / CLOSING ----- */
+    .footer {
+      padding: 2rem 0;
+      background: #111;
+      color: #f0ede8;
+      text-align: center;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+
+    .footer span {
+      color: #b15e2a;
+    }
+
+    /* ----- SCROLL ANIMATIONS ----- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ----- RESPONSIVE TWEAKS ----- */
+    @media (max-width: 768px) {
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-tagline {
+        text-align: left;
+      }
+      .hero-title-2 {
+        margin-left: 0;
+      }
+      .services-header h2 {
+        font-size: 2rem;
+      }
+      .step-item {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .step-number {
+        font-size: 1.8rem;
+      }
+      .why h2 {
+        font-size: 2rem;
+      }
+      .process-header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 18px;
+      }
+      .hero {
+        padding: 2rem 0 3rem;
+      }
+      .services, .process, .why {
+        padding: 3rem 0;
+      }
+    }
+
+    /* ----- CUSTOM CURSOR (subtle) ----- */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #b15e2a;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.1s ease;
+      mix-blend-mode: difference;
+      opacity: 0.6;
+    }
+
+    /* smooth text selection */
+    ::selection {
+      background: #b15e2a;
+      color: #f5f3ef;
+    }
+
+    /* Preloader-like entrance for hero */
+    .hero-title-1, .hero-title-2 {
+      opacity: 0;
+      animation: heroReveal 1s ease forwards;
+    }
+
+    .hero-title-1 {
+      animation-delay: 0.1s;
+    }
+
+    .hero-title-2 {
+      animation-delay: 0.25s;
+    }
+
+    @keyframes heroReveal {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- custom cursor dot (subtle) -->
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-top">
+        <div class="logo">FRAMENOX<span>✶</span></div>
+        <div class="hero-tagline">Make Your Brand Impossible to Ignore.</div>
+      </div>
+      <div class="hero-main">
+        <div class="hero-title-1">Your Vision.</div>
+        <div class="hero-title-2">Our Frame.</div>
+        <div class="hero-quote">“We turn ideas into powerful visual stories that connect, engage, and convert.”</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="services">
+    <div class="container">
+      <div class="services-header fade-up">
+        <div class="section-label">OUR SERVICES</div>
+        <h2>The services we provide <span class="star">✶</span></h2>
+        <p class="services-sub">Websites, video edits, design and social media for brands we work with every month — from an IIT Mandi EdTech startup to travel creators and real estate launches.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-up delay-1">
+          <div class="service-tag">G1</div>
+          <h3>Web Development</h3>
+        </div>
+        <div class="service-card fade-up delay-2">
+          <div class="service-tag">G2</div>
+          <h3>Video Editing</h3>
+        </div>
+        <div class="service-card fade-up delay-3">
+          <div class="service-tag">G3</div>
+          <h3>Graphic Design</h3>
+        </div>
+        <div class="service-card fade-up delay-4">
+          <div class="service-tag">G4</div>
+          <h3>Branding</h3>
+        </div>
+        <div class="service-card fade-up delay-5">
+          <div class="service-tag">G5</div>
+          <h3>Social Media Management</h3>
+        </div>
+        <div class="service-card fade-up delay-5">
+          <div class="service-tag">G6</div>
+          <h3>Creative Direction</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WORK PROCESS ===== -->
+  <section class="process">
+    <div class="container">
+      <div class="process-header fade-up">
+        <h2>FRAMENOX • WORK PROCESS</h2>
+        <span class="process-label">5 simple steps</span>
+      </div>
+      <div class="process-steps">
+        <!-- step 1 -->
+        <div class="step-item fade-up delay-1">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>RAW FOOTAGE &amp; BRIEF</h3>
+            <p>Analyzing raw clips, organizing b-roll footage, and aligning on retention pacing goals.</p>
+          </div>
+        </div>
+        <!-- step 2 -->
+        <div class="step-item fade-up delay-2">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>ROUGH CUT &amp; STORY</h3>
+            <p>Assembling timeline structure, narrative flow, and frame-accurate clip cuts.</p>
+          </div>
+        </div>
+        <!-- step 3 -->
+        <div class="step-item fade-up delay-3">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>MOTION FX &amp; AUDIO</h3>
+            <p>Adding kinetic motion graphics, sound design, ambient audio mixing, and SFX hooks.</p>
+          </div>
+        </div>
+        <!-- step 4 -->
+        <div class="step-item fade-up delay-4">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>DAVINCI COLOR GRADE</h3>
+            <p>Professional DaVinci Resolve color grading, LUT matching, and lighting correction.</p>
+          </div>
+        </div>
+        <!-- step 5 -->
+        <div class="step-item fade-up delay-5">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h3>4K MASTER EXPORT</h3>
+            <p>Final multi-format master renders optimized for YouTube, Instagram, and cinema ads.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY FRAMENOX ===== -->
+  <section class="why">
+    <div class="container">
+      <h2 class="fade-up">Why choose us</h2>
+      <div class="why-grid">
+        <div class="why-card fade-up delay-1">
+          <div class="why-number">01</div>
+          <h3>28 Posts a Month</h3>
+          <p>Creatives, carousels and reels shipped every month for Adhyay AI — planned, written and edited in-house.</p>
+        </div>
+        <div class="why-card fade-up delay-2">
+          <div class="why-number">02</div>
+          <h3>10+ Brands</h3>
+          <p>Partnered with an IIT Mandi EdTech startup, travel creators, real estate launches and research institutes.</p>
+        </div>
+        <div class="why-card fade-up delay-3">
+          <div class="why-number">03</div>
+          <h3>Modern Design</h3>
+          <p>Pixel-perfect visual identity, 4K DaVinci color grading, and ultra-smooth 3D web experiences.</p>
+        </div>
+        <div class="why-card fade-up delay-4">
+          <div class="why-number">04</div>
+          <h3>Fast Delivery</h3>
+          <p>High-octane turnarounds with strict deadline adherence and dedicated project managers.</p>
+        </div>
+        <div class="why-card fade-up delay-5">
+          <div class="why-number">05</div>
+          <h3>Free Sample Edit</h3>
+          <p>Test our video editing and design quality with zero risk before committing to full production.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      FRAMENOX <span>✶</span> creative agency — all rights reserved
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    (function() {
+      // ----- INTERSECTION OBSERVER FOR FADE-UP ANIMATIONS -----
+      const fadeElements = document.querySelectorAll('.fade-up');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // optional: unobserve after visible to keep performance
+            // observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      fadeElements.forEach(el => observer.observe(el));
+
+      // ----- SUBTLE CURSOR DOT (follow mouse) -----
+      const cursorDot = document.getElementById('cursorDot');
+      if (cursorDot && window.matchMedia('(pointer: fine)').matches) {
+        let mouseX = 0, mouseY = 0;
+        let dotX = 0, dotY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+          // lerp for smooth follow
+          dotX += (mouseX - dotX) * 0.15;
+          dotY += (mouseY - dotY) * 0.15;
+          cursorDot.style.transform = `translate(${dotX - 4}px, ${dotY - 4}px)`; // offset half size
+          requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Hide on touch devices (already handled by matchMedia)
+      } else if (cursorDot) {
+        cursorDot.style.display = 'none';
+      }
+
+      // ----- OPTIONAL: HERO TITLE RE-ANIMATION ON SCROLL (keep subtle) -----
+      // already via CSS keyframes on load; no extra needed
+
+      // ----- ADD SMOOTH HOVER ON SERVICE CARDS / STEP ITEMS (already in CSS) -----
+      // but we can add a tiny interactive detail: service cards get a small color change on hover via JS? 
+      // (already in CSS hover)
+
+      // ----- CREATE SMOOTH SCROLL FOR ANCHORS (none present, but ready) -----
+      // no anchor links currently, but this is future-proof
+
+      // ----- PRELOAD / LAZY: all good, no images to load -----
+      console.log('Framenox UI — clone ready ✶');
+    })();
+  </script>
+</body>
+</html>
